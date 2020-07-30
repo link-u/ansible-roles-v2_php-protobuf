@@ -1,0 +1,17 @@
+---
+# handlers/main.yml (php-protobuf)
+# Prefix : php_protobuf
+
+- name: Restart php-fpm
+  systemd:
+    name: "php{{ php_protobuf_php_version }}-fpm.service"
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: Reload php-fpm
+  systemd:
+    name: "php{{ php_protobuf_php_version }}-fpm.service"
+    state: reloaded
+    enabled: yes
+  become: yes

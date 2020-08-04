@@ -1,0 +1,15 @@
+---
+# tasks/install.yml (php-protobuf)
+# Prefix : php_protobuf
+
+- name: Install prerequirements
+  apt:
+    name: "{{ php_protobuf_install_packages }}"
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+
+- name: Install from pecl
+  pear:
+    name: "pecl/protobuf-{{ php_protobuf_version }}"
+    state: present

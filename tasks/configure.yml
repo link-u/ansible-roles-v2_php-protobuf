@@ -1,0 +1,21 @@
+---
+# tasks/configure.yml (php-protobuf)
+# Prefix : php_protobuf
+
+- name: Put ini file
+  lineinfile:
+    path: "/etc/php/{{ php_protobuf_php_version }}/mods-available/protobuf.ini"
+    regexp: '^extension='
+    line: extension=protobuf.so
+    create: yes
+  notify: Reload php-fpm
+
+- name: Link ini file
+  file:
+    src: "/etc/php/{{ php_protobuf_php_version }}/mods-available/protobuf.ini"
+    dest: "{{ item }}/30-protobuf.ini"
+    state: link
+  loop:
+    - "/etc/php/{{ php_protobuf_php_version }}/fpm/conf.d"
+    - "/etc/php/{{ php_protobuf_php_version }}/cli/conf.d"
+  notify: Reload php-fpm

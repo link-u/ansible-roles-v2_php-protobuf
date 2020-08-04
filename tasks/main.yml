@@ -1,0 +1,13 @@
+---
+# tasks/main.yml (php-protobuf)
+# Prefix : php_protobuf
+
+- name: Install tasks
+  import_tasks: install.yml
+  when:
+    - php_protobuf_install_flag | bool
+  tags: ["install"]
+
+- name: Configure tasks
+  import_tasks: configure.yml
+  tags: ["configure"]
